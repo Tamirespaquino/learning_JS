@@ -1,0 +1,40 @@
+{
+  "name": "curso_schoolofnet",
+  "version": "1.0.0",
+  "description": "'Classes' transcription of JS vanilla'",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tamirespaquino/learning_JS.git"
+  },
+  "keywords": [
+    "js",
+    "js",
+    "vanilla",
+    "learning",
+    "js",
+    "learning",
+    "programming"
+  ],
+  "author": "Tamires de Aquino",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tamirespaquino/learning_JS/issues"
+  },
+  "homepage": "https://github.com/Tamirespaquino/learning_JS#readme",
+  "dependencies": {
+    "hooky": "0.0.1"
+  },
+  "devDependencies": {
+    "husky": "^7.0.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run test",
+      "pre-push": "git diff HEAD --quite && npm run test"
+    }
+  }
+}
