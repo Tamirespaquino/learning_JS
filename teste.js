@@ -1,3 +1,5 @@
 const test = 'teste';
 
-return test
+const testeContinua = 'vamos testar de novo';
+
+return testeContinua;
