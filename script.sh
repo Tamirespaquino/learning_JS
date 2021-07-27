@@ -11,7 +11,6 @@ do
   esac
 done
 
-# fullTag=`git describe --abbrev=0 --tags 2>/dev/null`
 fullTag=$(git tag --sort version:refname | tail -1)
 
 currentVersionTagParts=(${fullTag//./ })
@@ -20,9 +19,15 @@ versionNumber1=${currentVersionTagParts[0]}
 versionNumber2=${currentVersionTagParts[1]}
 versionNumber3=${currentVersionTagParts[2]}
 
-if [[ $versionTag == 'patch' ]]
+if [[ $currentVersionTagParts == 'major' ]]
 then
-    versionNumber3=$((versionNumber3+1))
+  versionNumber1=$((versionNumber1+1))
+elif [[ $currentVersionTagParts == 'minor' ]]
+then
+  versionNumber2=$((versionNumber2+1))
+elif [[ $currentVersionTagParts == 'patch' ]]
+then
+  versionNumber3=$((versionNumber3+1))
 fi
 
 newTag="$versionNumber1.$versionNumber2.$versionNumber3"
@@ -39,7 +44,7 @@ if [ -z "$needsTag" ]; then
     git push --tags 
     git push
 else
-    echo "Already a tag on this commit. That's great"
+    echo "Already a tag on this commit"
 fi
 
 exit 0
