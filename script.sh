@@ -32,8 +32,8 @@ fi
 newTag="$versionNumber1.$versionNumber2.$versionNumber3"
 echo "($versionTag) updating $fullTag to $newTag"
 
-# gitCommit=`git rev-parse HEAD`
-# needsTag=`git describe --contains $gitCommit 2>/dev/null`
+gitCommit=`git rev-parse HEAD`
+needsTag=`git describe --contains $gitCommit 2>/dev/null`
 
 if [ -z "$needsTag" ]; then
     echo "Tagged with $newTag"
