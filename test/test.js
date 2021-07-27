@@ -1,4 +1,4 @@
-let testar = 'testando branch com script maior';
+let testar = 'testando minor';
 const number = 12;
 const somaEstranha = testar + number;
 
