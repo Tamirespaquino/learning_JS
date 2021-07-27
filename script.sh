@@ -2,6 +2,9 @@
 
 versionTag=""
 
+# ./script.sh -v patch
+# ./script.sh -v minor
+# ./script.sh -v major
 #get parameters
 while getopts v: flag
 do
@@ -10,51 +13,36 @@ do
   esac
 done
 
+# echo 'versiontag' $versionTag
+
+# fullTag=`git describe --abbrev=0 --tags 2>/dev/null`
 fullTag=$(git tag --sort version:refname | tail -1)
-# patch=$(echo ${fullTag} | grep -zoP '(?<=\.)[^.]*$')
-# newPatch="$(($patch + 1))"
 
-currentVersionTagParts=(${fullTag// . / })
+currentVersionTagParts=(${fullTag//./ })
 
-versionNumberMajor=${fullTag[0]}
-versionNumberMinor=${fullTag[1]}
-versionNumberPatch=${fullTag[2]}
+versionNumber1=${currentVersionTagParts[0]}
+versionNumber2=${currentVersionTagParts[1]}
+versionNumber3=${currentVersionTagParts[2]}
 
 if [[ $versionTag == 'patch' ]]
 then
-    versionNumberPatch=$((versionNumberPatch+1))
+    versionNumber3=$((versionNumber3+1))
 fi
 
-newTag="$versionNumberMajor.$versionNumberMinor.$versionNumberPatch"
+newTag="$versionNumber1.$versionNumber2.$versionNumber3"
 echo "($versionTag) updating $fullTag to $newTag"
 
-gitCommit=`git rev-parse HEAD`
-needsTag=`git describe --contains $gitCommit 2>/dev/null`
+# gitCommit=`git rev-parse HEAD`
+# needsTag=`git describe --contains $gitCommit 2>/dev/null`
 
 if [ -z "$needsTag" ]; then
-    npm version $newTag
-    npm publish --access public
-    echo "${fullTag/$patch/$newPatch}"
     echo "Tagged with $newTag"
-    echo "fullTag ${fullTag}"
-    echo "patch ${patch}"
-    echo "newPatch ${newPatch}"
+    echo "newTag ${newTag}"
     git tag $newTag
-    git push --tasg 
+    git push --tags 
     git push
 else
     echo "Already a tag on this commit"
 fi
 
 exit 0
-
-
-# 3 -> 4
-# echo "${fullTag/$patch/$newPatch}"
-# 2.0.0 -> 2.0.1
-# 2.0.0 -> 2.1.0
- 
-# echo fullTag ${fullTag}
-# echo patch ${patch}
-# echo newPatch ${newPatch}
-
