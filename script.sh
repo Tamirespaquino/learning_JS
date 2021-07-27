@@ -19,13 +19,13 @@ versionNumber1=${currentVersionTagParts[0]}
 versionNumber2=${currentVersionTagParts[1]}
 versionNumber3=${currentVersionTagParts[2]}
 
-if [[ $currentVersionTagParts == 'major' ]]
+if [[ $versionTag == 'major' ]]
 then
   versionNumber1=$((versionNumber1+1))
-elif [[ $currentVersionTagParts == 'minor' ]]
+elif [[ $versionTag == 'minor' ]]
 then
   versionNumber2=$((versionNumber2+1))
-elif [[ $currentVersionTagParts == 'patch' ]]
+elif [[ $versionTag == 'patch' ]]
 then
   versionNumber3=$((versionNumber3+1))
 fi
@@ -44,7 +44,7 @@ if [ -z "$needsTag" ]; then
     git push --tags 
     git push
 else
-    echo "Already a tag on this commit. That's great"
+    echo "Already a tag on this commit"
 fi
 
 exit 0
