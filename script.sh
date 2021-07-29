@@ -1,25 +1,43 @@
 #!/bin/bash
 
 versionTag=""
-targetEnv=""
+# targetEnv=""
 
 # ./script.sh -v patch or minor or major AND DEV or HML or PRD
 #get parameters
-while getopts t:v: flag
+while getopts v: flag
 do
   case "${flag}" in
-    t) targetEnv=${OPTARG};;
+    # t) targetEnv=${OPTARG};;
     v) versionTag=${OPTARG};;
   esac
 done
 
-fullTag=$(git tag --sort version:refname | grep $targetEnv | tail -1) 
+fullTag=$(git tag --sort version:refname | tail -1) 
+# fullTag=$(git tag --sort version:refname | grep $targetEnv | tail -1) 
 
 if [[ $fullTag == '' ]]
 then
   fullTag='1.0.0'
 fi
-echo "Current Version: $fullTag and $targetEnv"
+echo "Current Version: $fullTag"
+# echo "Current Version: $fullTag and $targetEnv"
+
+currentTargetEnv=(${targetEnv})
+
+# if [[ $targetEnv == 'DEV' ]]
+# then
+#   echo $currentTargetEnv
+# elif [[ $targetEnv == 'HML' ]]
+# then
+#   echo $currentTargetEnv
+# elif [[ $targetEnv == 'PRD' ]]
+# then 
+#   echo $currentTargetEnv
+# else 
+#   echo "No env or incorrect one specified. Try: -t [ENV, HML, PRD]"
+#   exit 1
+# fi
 
 currentVersionTagParts=(${fullTag//./ })
 
@@ -44,22 +62,6 @@ echo "($versionTag) updating $fullTag to $newTag"
 #it sees if the last commit has a tag or not. If it hasn't, it associates the newTag
 gitCommit=`git rev-parse HEAD`
 needsTag=`git describe --contains $gitCommit 2>/dev/null`
-
-currentTargetEnv=($targetEnv)
-
-if [[ $targetEnv == 'DEV' ]]
-then
-  echo $currentTargetEnv
-elif [[ $targetEnv == 'HML' ]]
-then
-  echo $currentTargetEnv
-elif [[ $targetEnv == 'PRD' ]]
-then 
-  echo $currentTargetEnv
-else 
-  echo "No env or incorrect one specified. Try: -t [ENV, HML, PRD]"
-  exit 1
-fi
 
 if [ -z "$needsTag" ]; then
     echo "Tagged with $newTag"
