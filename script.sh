@@ -5,11 +5,11 @@ targetEnv=""
 
 # ./script.sh -v patch or minor or major AND DEV or HML or PRD
 #get parameters
-while getopts v:t: flag
+while getopts t:v: flag
 do
   case "${flag}" in
-    v) versionTag=${OPTARG};;
     t) targetEnv=${OPTARG};;
+    v) versionTag=${OPTARG};;
   esac
 done
 
@@ -21,17 +21,17 @@ then
 fi
 echo "Current Version: $fullTag and $targetEnv"
 
-# currentTargetEnv=($targetEnv)
+currentTargetEnv=($targetEnv)
 
 if [[ $targetEnv == 'DEV' ]]
 then
-  $newEnv='DEV' # ou $newEnv=$targetEnv?
+  echo $currentTargetEnv
 elif [[ $targetEnv == 'HML' ]]
 then
-  $newEnv='HML' # ou $newEnv=$targetEnv?
+  echo $currentTargetEnv
 elif [[ $targetEnv == 'PRD' ]]
 then 
-  $newEnv='PRD'
+  echo $currentTargetEnv
 else 
   echo "No env or incorrect one specified. Try: -t [ENV, HML, PRD]"
   exit 1
