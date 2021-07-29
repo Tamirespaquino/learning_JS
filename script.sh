@@ -45,7 +45,7 @@ versionNumber3=${currentVersionTagParts[2]}
 if [[ $versionTag == 'major' ]]
 then
   currentVersionMajor=(${versionNumber1//_/ })
-  echo "${currentVersionMajor[0]} and ${currentVersionMajor[1]}"
+  # echo "${currentVersionMajor[0]} and ${currentVersionMajor[1]}"
   versionNumber1=$((currentVersionMajor[1]+1))
 elif [[ $versionTag == 'minor' ]]
 then
