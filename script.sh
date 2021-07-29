@@ -21,22 +21,6 @@ then
 fi
 echo "Current Version: $fullTag and $targetEnv"
 
-currentTargetEnv=($targetEnv)
-
-if [[ $targetEnv == 'DEV' ]]
-then
-  echo $currentTargetEnv
-elif [[ $targetEnv == 'HML' ]]
-then
-  echo $currentTargetEnv
-elif [[ $targetEnv == 'PRD' ]]
-then 
-  echo $currentTargetEnv
-else 
-  echo "No env or incorrect one specified. Try: -t [ENV, HML, PRD]"
-  exit 1
-fi
-
 currentVersionTagParts=(${fullTag//./ })
 
 versionNumber1=${currentVersionTagParts[0]}
@@ -60,6 +44,22 @@ echo "($versionTag) updating $fullTag to $newTag"
 #it sees if the last commit has a tag or not. If it hasn't, it associates the newTag
 gitCommit=`git rev-parse HEAD`
 needsTag=`git describe --contains $gitCommit 2>/dev/null`
+
+currentTargetEnv=($targetEnv)
+
+if [[ $targetEnv == 'DEV' ]]
+then
+  echo $currentTargetEnv
+elif [[ $targetEnv == 'HML' ]]
+then
+  echo $currentTargetEnv
+elif [[ $targetEnv == 'PRD' ]]
+then 
+  echo $currentTargetEnv
+else 
+  echo "No env or incorrect one specified. Try: -t [ENV, HML, PRD]"
+  exit 1
+fi
 
 if [ -z "$needsTag" ]; then
     echo "Tagged with $newTag"
