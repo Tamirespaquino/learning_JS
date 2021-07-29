@@ -51,7 +51,6 @@ then
 fi
 
 newTag="${targetEnv}_${versionNumber1}.${versionNumber2}.${versionNumber3}"
-echo "${versionNumber1} ------------- ${targetEnv}"
 echo "($versionTag) updating $fullTag to $newTag"
 
 #it sees if the last commit has a tag or not. If it hasn't, it associates the newTag
