@@ -56,7 +56,7 @@ then
   versionNumber3=$((versionNumber3+1))
 fi
 
-newTag="$currentTargetEnv._.$versionNumber1.$versionNumber2.$versionNumber3"
+newTag="$currentTargetEnv_$versionNumber1.$versionNumber2.$versionNumber3"
 echo "($versionTag) updating $fullTag to $newTag"
 
 #it sees if the last commit has a tag or not. If it hasn't, it associates the newTag
@@ -64,8 +64,8 @@ gitCommit=`git rev-parse HEAD`
 needsTag=`git describe --contains $gitCommit 2>/dev/null`
 
 if [ -z "$needsTag" ]; then
-    echo "Tagged with $currentTargetEnv_$newTag"
-    echo "newTag ${currentTargetEnv}_${newTag}"
+    echo "Tagged with $newTag"
+    echo "newTag ${newTag}"
     git tag $newTag
     git push --tags 
     git push
