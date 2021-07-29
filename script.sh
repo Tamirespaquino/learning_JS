@@ -36,11 +36,12 @@ else
   exit 1
 fi
 
-currentVersionTagParts=(${fullTag//./ })
+currentVersionTagParts=(${fullTag//_//./ })
 
-versionNumber1=${currentVersionTagParts[0]}
-versionNumber2=${currentVersionTagParts[1]}
-versionNumber3=${currentVersionTagParts[2]}
+versionEnv=${currentVersionTagParts[0]}
+versionNumber1=${currentVersionTagParts[1]}
+versionNumber2=${currentVersionTagParts[2]}
+versionNumber3=${currentVersionTagParts[3]}
 
 if [[ $versionTag == 'major' ]]
 then
@@ -67,7 +68,7 @@ if [ -z "$needsTag" ]; then
     git push --tags 
     git push
 else
-    echo "Already a tag on this commit. That's a shame"
+    echo "Already a tag on this commit"
 fi
 
 exit 0
