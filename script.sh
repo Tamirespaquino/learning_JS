@@ -33,14 +33,14 @@ fi
 
 currentVersionTagParts=(${fullTag//./ })
 
-versionNumber1=${currentVersionTagParts[0]}
+currentMajorParts=(${currentVersionTagParts[0]//_/ })
+versionNumber1=${currentMajorParts[1]}
 versionNumber2=${currentVersionTagParts[1]}
 versionNumber3=${currentVersionTagParts[2]}
 
 if [[ $versionTag == 'major' ]]
 then
-  currentVersionMajorParts=(${versionNumber1//_/ })
-  versionNumber1=$((currentVersionMajorParts[1]+1))
+  versionNumber1=$((versionNumber1+1))
   echo "${versionNumber1}"
 elif [[ $versionTag == 'minor' ]]
 then
@@ -51,6 +51,7 @@ then
 fi
 
 newTag="${targetEnv}_${versionNumber1}.${versionNumber2}.${versionNumber3}"
+echo "${versionNumber1} ------------- ${targetEnv}"
 echo "($versionTag) updating $fullTag to $newTag"
 
 #it sees if the last commit has a tag or not. If it hasn't, it associates the newTag
