@@ -21,19 +21,18 @@ then
 fi
 echo "Current Version: $targetEnv_$fullTag"
 
-currentTargetEnv=(${targetEnv})
 
 if [[ $targetEnv == 'DEV' ]]
 then
-  echo $currentTargetEnv
+  echo $targetEnv
 elif [[ $targetEnv == 'HML' ]]
 then
-  echo $currentTargetEnv
+  echo $targetEnv
 elif [[ $targetEnv == 'PRD' ]]
 then 
-  echo $currentTargetEnv
+  echo $targetEnv
 else 
-  echo "No env or incorrect one specified. Try: -t [ENV, HML, PRD]"
+  echo "No env or incorrect one specified. Try: -t [DEV, HML, PRD]"
   exit 1
 fi
 
