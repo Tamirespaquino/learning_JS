@@ -13,6 +13,7 @@ do
   esac
 done
 
+# find the last commited tag 
 fullTag=$(git tag --sort version:refname | grep -i $targetEnv | tail -1) 
 
 if [[ $fullTag == '' ]]
