@@ -21,7 +21,7 @@ then
 fi
 echo "Current Version: $targetEnv_$fullTag"
 
-
+# select env
 if [[ $targetEnv == 'DEV' ]]
 then
   echo $targetEnv
@@ -36,16 +36,17 @@ else
   exit 1
 fi
 
-currentVersionTagParts=(${fullTag//_//./ })
+currentVersionTagParts=(${fullTag//./ })
 
-versionEnv=${currentVersionTagParts[0]}
-versionNumber1=${currentVersionTagParts[1]}
-versionNumber2=${currentVersionTagParts[2]}
-versionNumber3=${currentVersionTagParts[3]}
+versionNumber1=${currentVersionTagParts[0]}
+versionNumber2=${currentVersionTagParts[1]}
+versionNumber3=${currentVersionTagParts[2]}
 
 if [[ $versionTag == 'major' ]]
 then
-  versionNumber1=$((versionNumber1+1))
+  currentVersionMajor=(${versionNumber1//_/ })
+  echo "${currentVersionMajor[0]} and ${currentVersionMajor[1]}"
+  versionNumber1=$((currentVersionMajor[1]+1))
 elif [[ $versionTag == 'minor' ]]
 then
   versionNumber2=$((versionNumber2+1))
