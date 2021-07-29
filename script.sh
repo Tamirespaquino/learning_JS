@@ -1,17 +1,41 @@
 #!/bin/bash
 
 versionTag=""
+targetEnv=""
 
-# ./script.sh -v patch or minor or major
+# ./script.sh -v patch or minor or major AND DEV or HML or PRD
 #get parameters
-while getopts v: flag
+while getopts v:t: flag
 do
   case "${flag}" in
     v) versionTag=${OPTARG};;
+    t) targetEnv=${OPTARG};;
   esac
 done
 
-fullTag=$(git tag --sort version:refname | tail -1)
+fullTag=$(git tag --sort version:refname | grep $targetEnv | tail -1) 
+
+if [[ $fullTag == '' ]]
+then
+  fullTag='1.0.0'
+fi
+echo "Current Version: $fullTag and $targetEnv"
+
+# currentTargetEnv=($targetEnv)
+
+if [[ $targetEnv == 'DEV' ]]
+then
+  $newEnv='DEV' # ou $newEnv=$targetEnv?
+elif [[ $targetEnv == 'HML' ]]
+then
+  $newEnv='HML' # ou $newEnv=$targetEnv?
+elif [[ $targetEnv == 'PRD' ]]
+then 
+  $newEnv='PRD'
+else 
+  echo "No env or incorrect one specified. Try: -t [ENV, HML, PRD]"
+  exit 1
+fi
 
 currentVersionTagParts=(${fullTag//./ })
 
