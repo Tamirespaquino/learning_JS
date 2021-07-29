@@ -13,14 +13,12 @@ do
   esac
 done
 
-# fullTag=$(git tag --sort version:refname | tail -1) 
-fullTag=$(git tag --sort version:refname | grep -i $targetEnv_ | tail -1) 
+fullTag=$(git tag --sort version:refname | grep -i $targetEnv | tail -1) 
 
 if [[ $fullTag == '' ]]
 then
   fullTag='1.0.0'
 fi
-# echo "Current Version: $fullTag"
 echo "Current Version: $targetEnv_$fullTag"
 
 currentTargetEnv=(${targetEnv})
