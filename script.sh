@@ -59,9 +59,9 @@ needsTag=`git describe --contains $gitCommit 2>/dev/null`
 if [ -z "$needsTag" ]; then
     echo "Tagged with $newTag"
     echo "newTag ${newTag}"
-    # git tag $newTag
-    # git push --tags 
-    # git push
+    git tag $newTag
+    git push --tags 
+    git push
 else
     echo "Already a tag on this commit"
 fi
