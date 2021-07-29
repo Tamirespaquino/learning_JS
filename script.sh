@@ -1,20 +1,20 @@
 #!/bin/bash
 
 versionTag=""
-# targetEnv=""
+targetEnv=""
 
 # ./script.sh -v patch or minor or major AND DEV or HML or PRD
 #get parameters
-while getopts v: flag
+while getopts "v:t:" flag
 do
   case "${flag}" in
-    # t) targetEnv=${OPTARG};;
     v) versionTag=${OPTARG};;
+    t) targetEnv=${OPTARG};;
   esac
 done
 
-fullTag=$(git tag --sort version:refname | tail -1) 
-# fullTag=$(git tag --sort version:refname | grep $targetEnv | tail -1) 
+# fullTag=$(git tag --sort version:refname | tail -1) 
+fullTag=$(git tag --sort version:refname | tail -1 | grep $targetEnv ) 
 
 if [[ $fullTag == '' ]]
 then
