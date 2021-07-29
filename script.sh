@@ -67,7 +67,7 @@ if [ -z "$needsTag" ]; then
     git push --tags 
     git push
 else
-    echo "Already a tag on this commit"
+    echo "Already a tag on this commit. That's a shame"
 fi
 
 exit 0
